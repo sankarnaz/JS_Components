@@ -1,3 +1,4 @@
+var count = 0;
 function createDialog()
 {
 	var dialogDiv =	document.createElement("DIV");
@@ -8,10 +9,12 @@ function createDialog()
 	var cancelButton = document.createElement("BUTTON");
 
 	dialogDiv.id="DIALOGDIV";
+	dialogDiv.style.position="absolute";
 	dialogDiv.style.width="550px";
 	dialogDiv.style.background="#f0efee";
 	dialogDiv.style.display="none";
-	dialogDiv.style.boxShadow="5px 6px #888888";
+	dialogDiv.style.boxShadow="0px 0px 6px #888888";
+	dialogDiv.style.zIndex="10";
 
 	dialogTop.id="DIALOGTOP";
 	dialogTop.style.height="40px";
@@ -51,13 +54,32 @@ function showDialog(message)
 	if(!myDialog)
 	{
 		var centerTag = document.createElement("CENTER");
+		var freezeLayer = document.createElement("DIV");
+		freezeLayer.style.position="absolute";
+		freezeLayer.style.top="0px";
+		freezeLayer.style.left="0px";
+		freezeLayer.style.width="100%";
+		freezeLayer.style.height="100%";
+		freezeLayer.style.zIndex="9";
+		freezeLayer.addEventListener("click",function blinkDialog(){
+			if(count<5)
+			{
+				myDialog.style.boxShadow = (count % 2 == 0) ? "0px 0px 6px #888888" : "";
+				count++;
+				setTimeout(blinkDialog,100);
+				return;
+			}
+			count=0;
+		});
 		myDialog = createDialog();
 		centerTag.appendChild(myDialog);
+		centerTag.appendChild(freezeLayer);
 		document.body.append(centerTag);
 	}
 	var content = document.getElementById("DIALOGCONTENT");
 	content.appendChild(document.createTextNode(message));
 	myDialog.style.display="inline-block";
+	myDialog.nextElementSibling.style.display="";
 }
 
 function closeDialog()
@@ -65,8 +87,19 @@ function closeDialog()
 	var myDialog = document.getElementById("DIALOGDIV");
 	if(myDialog)
 	{
+		myDialog.nextElementSibling.style.display="none";
 		var content = document.getElementById("DIALOGCONTENT");
 		content.innerHTML="";
 		myDialog.style.display="none";
+	}
+}
+
+function blinkDialog()
+{
+	if(count<3)
+	{
+		
+		count++;
+		setTimeout(blinkDialog,500);
 	}
 }
