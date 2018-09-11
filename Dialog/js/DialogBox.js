@@ -3,44 +3,33 @@ function createDialog()
 {
 	var dialogDiv =	document.createElement("DIV");
 	var dialogTop =	document.createElement("DIV");
+	var close = document.createElement("SPAN");
 	var dialogContent =	document.createElement("DIV");
 	var dialogBottom =	document.createElement("DIV");
-	var okButton = document.createElement("BUTTON");
-	var cancelButton = document.createElement("BUTTON");
+	var okButton = document.createElement("SPAN");
 
-	dialogDiv.id="DIALOGDIV";
-	dialogDiv.style.position="absolute";
-	dialogDiv.style.width="550px";
-	dialogDiv.style.background="#f0efee";
-	dialogDiv.style.display="none";
 	dialogDiv.style.boxShadow="0px 0px 6px #888888";
-	dialogDiv.style.zIndex="10";
+	dialogDiv.className="dialogDiv center";
 
-	dialogTop.id="DIALOGTOP";
-	dialogTop.style.height="40px";
-	dialogTop.style.background="#3b3f45";
+	dialogTop.style.height="20px";
+	dialogTop.style.padding="10px";
+	dialogTop.style.color="#d44836";
+	dialogTop.style.background="#f0efee";
 
-	dialogContent.id="DIALOGCONTENT";
-	dialogContent.style.minHeight="200px";
-	dialogContent.style.maxHeight="300px";
-	dialogContent.style.overflowX="hidden";
-	dialogContent.style.overflowY="scroll";
-	dialogContent.style.textOverflow="ellipsis"
-	dialogContent.style.padding="5px";
+	close.className="close";
+	close.addEventListener("click",closeDialog);
 
-	dialogBottom.id="DIALOGBOTTOM";
-	dialogBottom.style.padding="5px";
+	dialogContent.className="dialogContent";
 
-	okButton.appendChild(document.createTextNode("Ok"));
-	okButton.style.marginLeft="180px";
+	okButton.className="button";
+	okButton.appendChild(document.createTextNode("OK"));
 	
-	cancelButton.appendChild(document.createTextNode("Cancel"));
-	cancelButton.style.marginLeft="10px";
-	cancelButton.setAttribute("onclick","closeDialog()");
-	
+	okButton.addEventListener("click",closeDialog);
+
+	dialogBottom.style.margin="auto";	
 	dialogBottom.appendChild(okButton);
-	dialogBottom.appendChild(cancelButton);
 	
+	dialogTop.appendChild(close);
 	dialogDiv.appendChild(dialogTop);
 	dialogDiv.appendChild(dialogContent);
 	dialogDiv.appendChild(dialogBottom);
@@ -48,19 +37,14 @@ function createDialog()
 	return dialogDiv;
 }
 
-function showDialog(message)
+function showDialog(title,message)
 {
-	var myDialog = document.getElementById("DIALOGDIV");
+	var myDialog = document.getElementsByClassName("dialogDiv")[0];
 	if(!myDialog)
 	{
-		var centerTag = document.createElement("CENTER");
+		var container = document.createElement("DIV");
 		var freezeLayer = document.createElement("DIV");
-		freezeLayer.style.position="absolute";
-		freezeLayer.style.top="0px";
-		freezeLayer.style.left="0px";
-		freezeLayer.style.width="100%";
-		freezeLayer.style.height="100%";
-		freezeLayer.style.zIndex="9";
+		freezeLayer.className="freezeLayer";
 		freezeLayer.addEventListener("click",function blinkDialog(){
 			if(count<5)
 			{
@@ -72,25 +56,25 @@ function showDialog(message)
 			count=0;
 		});
 		myDialog = createDialog();
-		centerTag.appendChild(myDialog);
-		centerTag.appendChild(freezeLayer);
-		document.body.append(centerTag);
+		container.appendChild(myDialog);
+		container.appendChild(freezeLayer);
+		document.body.append(container);
 	}
-	var content = document.getElementById("DIALOGCONTENT");
+	var titleDiv = myDialog.firstElementChild;
+	var content = document.getElementsByClassName("dialogContent")[0];
+	titleDiv.appendChild(document.createTextNode(title));
 	content.appendChild(document.createTextNode(message));
-	myDialog.style.display="inline-block";
-	myDialog.nextElementSibling.style.display="";
+	myDialog.parentElement.style.display="";
 }
 
 function closeDialog()
 {
-	var myDialog = document.getElementById("DIALOGDIV");
+	var myDialog = document.getElementsByClassName("dialogDiv")[0];
 	if(myDialog)
 	{
-		myDialog.nextElementSibling.style.display="none";
-		var content = document.getElementById("DIALOGCONTENT");
+		myDialog.parentElement.style.display="none";
+		var content = document.getElementsByClassName("dialogContent")[0];
 		content.innerHTML="";
-		myDialog.style.display="none";
 	}
 }
 

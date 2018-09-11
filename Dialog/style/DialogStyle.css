@@ -1,0 +1,100 @@
+.center
+{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.freezeLayer
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9;
+}
+
+.dialogDiv
+{
+	width: 550px;
+    background: #ffffff;
+    display: inline-block;
+    z-index: 10;
+}
+	
+.dialogContent
+{
+	min-height: 200px;
+	max-height: 300px;
+	overflow: hidden auto;
+	text-overflow: ellipsis;
+	padding: 15px;
+}
+
+.dialogContent + div
+{
+	padding: 15px;
+	text-align: center;
+}
+
+.button
+{
+	display: inline-block;
+	cursor: pointer;
+	padding: 5px;
+	text-align: center;
+	border-radius:10px;
+	background: #f4f3f2;
+	min-width: 50px;
+	border: solid silver 1px;
+}
+
+.button:hover
+{
+	border: solid #a29f9f 1px;
+}
+
+.button:active
+{
+	background: #bab7b7;
+}
+
+.close
+{
+	position: relative;
+	cursor: pointer;
+	width: 25px;
+	height: 25px;
+	opacity: 0.3;
+	float: right;
+	padding: 5px;
+}
+
+.close:hover 
+{
+  	opacity: 0.5;
+}
+
+.close:before, .close:after
+{
+ 	position: absolute;
+  	left: 15px;
+	content: ' ';
+  	height: 22px;
+  	width: 2px;
+  	background-color: #333;
+}
+
+.close:before 
+{
+	transform: rotate(45deg);
+}
+
+.close:after
+{
+	transform: rotate(-45deg);
+}
+
