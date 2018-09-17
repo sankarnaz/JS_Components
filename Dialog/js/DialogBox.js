@@ -74,6 +74,7 @@ function closeDialog()
 	{
 		myDialog.parentElement.style.display="none";
 		var content = document.getElementsByClassName("dialogContent")[0];
+		myDialog.firstElementChild.removeChild(myDialog.firstElementChild.lastChild);	//	to remove title
 		content.innerHTML="";
 	}
 }
