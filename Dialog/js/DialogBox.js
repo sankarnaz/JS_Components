@@ -39,6 +39,7 @@ function createDialog()
 
 function showDialog(title,message)
 {
+	new Audio('audio/Dialog_Waiting.wav').play();
 	var myDialog = document.getElementsByClassName("dialogDiv")[0];
 	if(!myDialog)
 	{
@@ -55,6 +56,7 @@ function showDialog(title,message)
 			}
 			count=0;
 		});
+		freezeLayer.addEventListener("click",function(){new Audio('audio/Dialog_Waiting.wav').play();});
 		myDialog = createDialog();
 		container.appendChild(myDialog);
 		container.appendChild(freezeLayer);
@@ -84,15 +86,5 @@ function closeDialog()
 		var content = document.getElementsByClassName("dialogContent")[0];
 		myDialog.firstElementChild.removeChild(myDialog.firstElementChild.lastChild);	//	to remove title
 		content.innerHTML="";
-	}
-}
-
-function blinkDialog()
-{
-	if(count<3)
-	{
-		
-		count++;
-		setTimeout(blinkDialog,500);
 	}
 }
