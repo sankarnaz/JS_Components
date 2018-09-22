@@ -1,5 +1,5 @@
 var count = 0;
-var dialogBeep = new Audio('audio/Dialog_Waiting.wav');
+var dialogBeep;
 function createDialog()
 {
 	var dialogDiv =	document.createElement("DIV");
@@ -10,6 +10,7 @@ function createDialog()
 	var okButton = document.createElement("SPAN");
 	dialogDiv.style.boxShadow="0px 0px 6px #888888";
 	dialogDiv.className="dialogDiv center";
+	dialogBeep = new Audio('audio/Dialog_Waiting.wav');
 
 	dialogTop.style.height="20px";
 	dialogTop.style.padding="10px";
@@ -39,7 +40,6 @@ function createDialog()
 
 function showDialog(title,message)
 {
-	dialogBeep.play();
 	var myDialog = document.getElementsByClassName("dialogDiv")[0];
 	if(!myDialog)
 	{
@@ -62,6 +62,7 @@ function showDialog(title,message)
 		container.appendChild(freezeLayer);
 		document.body.appendChild(container);
 	}
+	dialogBeep.play();
 	var titleDiv = myDialog.firstElementChild;
 	var content = document.getElementsByClassName("dialogContent")[0];
 	if(!title)
