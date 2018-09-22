@@ -58,7 +58,7 @@ function showDialog(title,message)
 		myDialog = createDialog();
 		container.appendChild(myDialog);
 		container.appendChild(freezeLayer);
-		document.body.append(container);
+		document.body.appendChild(container);
 	}
 	var titleDiv = myDialog.firstElementChild;
 	var content = document.getElementsByClassName("dialogContent")[0];
