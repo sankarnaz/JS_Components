@@ -62,6 +62,14 @@ function showDialog(title,message)
 	}
 	var titleDiv = myDialog.firstElementChild;
 	var content = document.getElementsByClassName("dialogContent")[0];
+	if(!title)
+	{
+		title = "";
+	}
+	if(!message)
+	{
+		message = "";	
+	}
 	titleDiv.appendChild(document.createTextNode(title));
 	content.appendChild(document.createTextNode(message));
 	myDialog.parentElement.style.display="";
