@@ -1,4 +1,5 @@
 var count = 0;
+var dialogBeep = new Audio('audio/Dialog_Waiting.wav');
 function createDialog()
 {
 	var dialogDiv =	document.createElement("DIV");
@@ -7,7 +8,6 @@ function createDialog()
 	var dialogContent =	document.createElement("DIV");
 	var dialogBottom =	document.createElement("DIV");
 	var okButton = document.createElement("SPAN");
-
 	dialogDiv.style.boxShadow="0px 0px 6px #888888";
 	dialogDiv.className="dialogDiv center";
 
@@ -39,7 +39,7 @@ function createDialog()
 
 function showDialog(title,message)
 {
-	new Audio('audio/Dialog_Waiting.wav').play();
+	dialogBeep.play();
 	var myDialog = document.getElementsByClassName("dialogDiv")[0];
 	if(!myDialog)
 	{
@@ -56,7 +56,7 @@ function showDialog(title,message)
 			}
 			count=0;
 		});
-		freezeLayer.addEventListener("click",function(){new Audio('audio/Dialog_Waiting.wav').play();});
+		freezeLayer.addEventListener("click",function(){dialogBeep.play();});
 		myDialog = createDialog();
 		container.appendChild(myDialog);
 		container.appendChild(freezeLayer);
